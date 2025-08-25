@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#3498db">
+  <title>Herramientas IA para Educadores</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💡 Herramientas de IA para Educadores</h1>
+      <p>Haga clic en una herramienta para ver sus usos y ejemplos.</p>
+    </header>
+
+    <div class="tools" id="tools-container">
+      <!-- Botones cargados dinámicamente -->
+    </div>
+
+    <div class="content" id="content">
+      <div id="scrolling-text">Selecciona una herramienta para comenzar...</div>
+    </div>
+
+    <div class="controls">
+      <label>Velocidad: 
+        <input type="range" id="speed" min="1" max="10" value="5" />
+        <span id="speed-value">5</span>
+      </label>
+
+      <label>Tamaño texto:
+        <select id="font-size">
+          <option value="1em">Pequeño</option>
+          <option value="1.2em" selected>Mediano</option>
+          <option value="1.5em">Grande</option>
+          <option value="2em">Muy Grande</option>
+        </select>
+      </label>
+
+      <label>
+        <input type="checkbox" id="mirror" /> Modo Espejo
+      </label>
+
+      <button id="pause">⏸️ Pausar</button>
+      <button id="restart">🔄 Reiniciar</button>
+      <span>Tiempo estimado: <strong id="read-time">0s</strong></span>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="preview-btn" style="padding: 10px 20px; background: #8e44ad; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">
+        🔍 Previsualizar App
+      </button>
+    </div>
+
+    <footer>
+      &copy; 2025 Herramientas IA para Educadores. Diseñado para formación docente.
+    </footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

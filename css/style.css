@@ -1,0 +1,124 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+h1 {
+  color: #2c3e50;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+.tools {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tool-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tool-btn:hover {
+  background: #2980b9;
+}
+.tool-btn i {
+  font-size: 20px;
+}
+.content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  min-height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+#scrolling-text {
+  white-space: nowrap;
+  font-size: 1.2em;
+  color: #2c3e50;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.3s;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #ecf0f1;
+  border-radius: 8px;
+}
+.controls label {
+  font-weight: bold;
+  color: #2c3e50;
+}
+.controls input, .controls select, .controls button {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.controls button {
+  background: #27ae60;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+.controls button:hover {
+  background: #219a52;
+}
+.mirror {
+  transform: scaleX(-1);
+}
+.preview-mode {
+  background: #1c1c1c !important;
+  color: #f0f0f0 !important;
+}
+.preview-mode #scrolling-text,
+.preview-mode .controls,
+.preview-mode .tools,
+.preview-mode header {
+  filter: invert(1) hue-rotate(180deg);
+}
+.preview-mode .content {
+  background: #000 !important;
+  color: #0f0;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  border: 1px solid #0f0;
+}
+.preview-mode .tool-btn {
+  background: #00c853 !important;
+}
+.preview-mode .controls {
+  background: #111 !important;
+}
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #7f8c8d;
+  font-size: 0.9em;
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "chatgpt",
+    "name": "ChatGPT",
+    "icon": "fab fa-rocketchat",
+    "text": "ChatGPT: Usa inteligencia artificial para generar textos, explicaciones, planes de clase y retroalimentación personalizada. Ejemplo 1: Pídele que cree un cuestionario sobre la Revolución Francesa para 3° grado. Ejemplo 2: Usa ChatGPT para corregir redacciones y dar sugerencias de mejora. Ideal para ahorro de tiempo y personalización del aprendizaje.",
+    "readTime": "45 segundos"
+  },
+  {
+    "id": "gemini",
+    "name": "Gemini",
+    "icon": "fas fa-brain",
+    "text": "Gemini (Google): Integrado con Google Workspace, ayuda a buscar información, analizar datos y generar contenido desde Drive, Docs o Gmail. Ejemplo 1: Pídele que resuma un artículo académico guardado en Drive. Ejemplo 2: Usa Gemini para crear presentaciones con datos actualizados de Google Trends. Perfecto para investigación y integración con herramientas escolares.",
+    "readTime": "50 segundos"
+  },
+  {
+    "id": "canva",
+    "name": "Canva AI",
+    "icon": "fas fa-paint-brush",
+    "text": "Canva con IA: Crea presentaciones, infografías y materiales visuales con comandos de texto. Usa Magic Write para generar contenido y Text to Image para crear ilustraciones. Ejemplo 1: Escribe 'infografía sobre el ciclo del agua' y Canva lo genera automáticamente. Ejemplo 2: Usa 'quitar fondo' o 'expandir imagen' para mejorar recursos. Excelente para materiales atractivos sin diseño previo.",
+    "readTime": "55 segundos"
+  },
+  {
+    "id": "khanmigo",
+    "name": "Khanmigo",
+    "icon": "fas fa-user-graduate",
+    "text": "Khanmigo: Asistente educativo de Khan Academy que guía a estudiantes con preguntas, sin dar respuestas directas. Ayuda a los docentes a monitorear el pensamiento crítico. Ejemplo 1: Un estudiante pregunta cómo resolver una ecuación; Khanmigo responde con una pregunta guiada. Ejemplo 2: Los profesores ven reportes de interacciones para identificar dificultades. Ideal para fomentar autonomía y comprensión profunda.",
+    "readTime": "50 segundos"
+  },
+  {
+    "id": "diffit",
+    "name": "Diffit",
+    "icon": "fas fa-file-alt",
+    "text": "Diffit: Adapta textos a diferentes niveles de lectura y genera actividades diferenciadas. Sube un artículo y elige el grado o nivel de inglés. Ejemplo 1: Convierte un texto científico en una versión para 2° grado con vocabulario simple. Ejemplo 2: Genera preguntas de lectura y vocabulario automáticamente. Perfecto para inclusión y diversidad en el aula.",
+    "readTime": "45 segundos"
+  }
+]

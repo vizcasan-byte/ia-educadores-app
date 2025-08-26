@@ -123,3 +123,69 @@ footer {
   color: #7f8c8d;
   font-size: 0.9em;
 }
+/* === BANNER DESTACADO === */
+.banner {
+  background: linear-gradient(135deg, #0056B3, #00A896);
+  color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
+  text-align: center;
+  padding: 25px 20px;
+  margin: 10px 0 25px;
+  position: relative;
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+.banner h2 {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.banner p {
+  font-size: 1.1em;
+  opacity: 0.95;
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+/* Animación sutil al pasar el mouse */
+.banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 86, 179, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner {
+    padding: 20px 15px;
+  }
+
+  .banner h2 {
+    font-size: 1.4em;
+  }
+
+  .banner p {
+    font-size: 1em;
+  }
+}

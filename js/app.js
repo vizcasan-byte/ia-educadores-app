@@ -49,19 +49,19 @@ function initApp(toolsArray) {
     const estimatedTime = (durationMs / 1000).toFixed(0);
     readTime.textContent = tools[currentTool]?.readTime || `${estimatedTime}s`;
 
-    function animate() {
-      if (!isPaused) {
-        position -= speed;
-        scrollingText.style.left = `${position}px`;
+  function animate() {
+    if (!isPaused) {
+      position -= speed;
+      scrollingText.style.top = `${position}px`;
 
-        if (position + textWidth < 0) {
-          position = window.innerWidth;
-        }
+      if (position + textHeight < 0) {
+        position = window.innerHeight;
       }
-      animationId = requestAnimationFrame(animate);
     }
-    animate();
+    animationId = requestAnimationFrame(animate);
   }
+  animate();
+}
 
   document.querySelectorAll(".tool-btn").forEach(btn => {
     btn.addEventListener("click", () => {

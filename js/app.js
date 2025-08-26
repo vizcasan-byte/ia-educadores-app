@@ -2,8 +2,13 @@
 async function loadTools() {
   try {
     const response = await fetch('data/tools.json');
+    if (!response.ok) throw new Error('Archivo no encontrado: ' + response.status);
+
     const tools = await response.json();
+    console.log('✅ Herramientas cargadas:', tools);
+
     const container = document.getElementById('tools-container');
+    container.innerHTML = ''; // Limpiar
 
     tools.forEach(tool => {
       const btn = document.createElement('button');
@@ -15,8 +20,11 @@ async function loadTools() {
 
     initApp(tools);
   } catch (error) {
-    console.error('Error al cargar herramientas:', error);
-    document.getElementById('scrolling-text').textContent = 'Error al cargar herramientas. Verifica tu conexión.';
+    console.error('❌ Error al cargar herramientas:', error);
+    const scrollingText = document.getElementById('scrolling-text');
+    if (scrollingText) {
+      scrollingText.textContent = '❌ Error: No se pudo cargar data/tools.json. Verifica que exista.';
+    }
   }
 }
 
@@ -40,7 +48,7 @@ function initApp(toolsArray) {
   let currentTool = null;
   let speed = 5;
 
-  // Función para escribir letra por letra (máquina de escribir)
+  // ✍️ Efecto de máquina de escribir
   function typeText(text, callback) {
     scrollingText.textContent = '';
     let i = 0;
@@ -52,28 +60,23 @@ function initApp(toolsArray) {
         clearInterval(interval);
         if (callback) callback();
       }
-    }, 100); // Velocidad de escritura: 100ms por letra
+    }, 100);
   }
 
-  // Función para mover el texto hacia arriba
+  // ⬆️ Mover texto de abajo hacia arriba
   function moveUp() {
     if (animationId) cancelAnimationFrame(animationId);
 
     const containerHeight = content.offsetHeight;
-    const textHeight = scrollingText.offsetHeight;
-    const totalDistance = containerHeight + textHeight + 50;
-    const durationMs = (totalDistance / speed) * 20;
-    const estimatedTime = (durationMs / 1000).toFixed(0);
-    readTime.textContent = tools[currentTool]?.readTime || `${estimatedTime}s`;
+    let position = -scrollingText.offsetHeight - 50;
 
-    let position = -textHeight - 50;
     function animate() {
       if (!isPaused) {
         position += speed;
         scrollingText.style.bottom = `${position}px`;
 
         if (position > containerHeight) {
-          position = -textHeight - 50;
+          position = -scrollingText.offsetHeight - 50;
         }
       }
       animationId = requestAnimationFrame(animate);
@@ -81,7 +84,7 @@ function initApp(toolsArray) {
     animate();
   }
 
-  // Eventos de botones
+  // 🔘 Eventos de botones
   document.querySelectorAll(".tool-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       currentTool = btn.dataset.tool;
@@ -89,17 +92,14 @@ function initApp(toolsArray) {
       scrollingText.style.fontSize = fontSizeControl.value;
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
-      scrollingText.textContent = ''; // Limpiar antes de escribir
+      scrollingText.textContent = '';
+      scrollingText.style.bottom = '-100px';
 
-      // Primero, escribir letra por letra
-      typeText(tool.text, () => {
-        // Después de escribir, mover hacia arriba
-        moveUp();
-      });
+      typeText(tool.text, moveUp);
     });
   });
 
-  // Controles
+  // 🎚️ Controles
   speedControl.addEventListener("input", () => {
     speed = parseInt(speedControl.value);
     speedValue.textContent = speed;
@@ -126,7 +126,7 @@ function initApp(toolsArray) {
       scrollingText.style.bottom = '-100px';
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
-      typeText(tools[currentTool].text, () => moveUp());
+      typeText(tools[currentTool].text, moveUp);
     }
   });
 
@@ -140,19 +140,12 @@ function initApp(toolsArray) {
   window.addEventListener("resize", () => {
     if (currentTool) moveUp();
   });
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    setTimeout(() => {
-      if (confirm("¿Quieres instalar esta app para usarla offline?")) {
-        e.prompt();
-      }
-    }, 2000);
-  });
 }
 
+// 🔥 Iniciar
 loadTools();
 
+// 🛠️ Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('js/sw.js')
     .then(reg => console.log('SW registrado:', reg.scope))

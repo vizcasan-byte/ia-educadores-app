@@ -59,10 +59,10 @@ h1 {
   font-size: 1.3em;
   color: #2c3e50;
   position: absolute;
-  top: -100px; /* Fuera de la parte superior */
+  bottom: -100px; /* Fuera de la parte inferior */
   left: 50%;
   transform: translateX(-50%);
-  transition: none; /* Desactiva transición para animación suave con JS */
+  transition: none;
   background: #f0f8ff;
   padding: 15px 25px;
   border-radius: 10px;

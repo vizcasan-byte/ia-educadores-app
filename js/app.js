@@ -46,9 +46,7 @@ function initApp(toolsArray) {
 
     const totalDistance = position + textWidth + 100;
     const durationMs = (totalDistance / speed) * 20;
-    const estimatedTime = (durationMs / 1000).toFixed(0);
-    readTime.textContent = tools[currentTool]?.readTime || `${estimatedTime}s`;
-
+    
   function animate() {
     if (!isPaused) {
       position -= speed;

@@ -47,12 +47,13 @@ h1 {
 }
 .content {
   background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  min-height: 200px;
-  overflow: hidden;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  min-height: 300px;
+  overflow: hidden;           /* ✅ Clave para evitar desbordamiento */
   position: relative;
+  border: 1px solid #E0E0E0;
 }
 #scrolling-text {
   white-space: normal;        /* ✅ Permite saltos de línea */

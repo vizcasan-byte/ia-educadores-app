@@ -2,7 +2,7 @@
   {
     "id": "chatgpt",
     "name": "ChatGPT",
-    "icon": "fab fa-rocketchat",
+    "icon": "fas fa-rocket",
     "text": "ChatGPT: Usa inteligencia artificial para generar textos, explicaciones, planes de clase y retroalimentación personalizada. Ejemplo 1: Pídele que cree un cuestionario sobre la Revolución Francesa para 3° grado. Ejemplo 2: Usa ChatGPT para corregir redacciones y dar sugerencias de mejora. Ideal para ahorro de tiempo y personalización del aprendizaje.",
     "readTime": "45 segundos"
   },

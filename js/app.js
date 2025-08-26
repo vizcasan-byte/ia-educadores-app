@@ -50,18 +50,22 @@ function initApp(toolsArray) {
 
   // ✍️ Efecto de máquina de escribir
   function typeText(text, callback) {
-    scrollingText.textContent = '';
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        scrollingText.textContent += text[i];
-        i++;
-      } else {
-        clearInterval(interval);
-        if (callback) callback();
-      }
-    }, 100);
-  }
+  const words = text.split(' ');
+  scrollingText.textContent = '';
+  let i = 0;
+
+  const interval = setInterval(() => {
+    if (i < words.length) {
+      scrollingText.textContent += (i === 0 ? '' : ' ') + words[i];
+      i++;
+      // Hacer scroll suave si el texto es muy alto
+      scrollingText.style.height = 'auto';
+    } else {
+      clearInterval(interval);
+      if (callback) callback();
+    }
+  }, 150); // 150ms por palabra (ajustable)
+}
 
   // ⬆️ Mover texto de abajo hacia arriba
   function moveUp() {

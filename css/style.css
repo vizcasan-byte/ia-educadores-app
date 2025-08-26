@@ -26,20 +26,21 @@ h1 {
   justify-content: center;
 }
 .tool-btn {
-  background: #3498db;
+  background: #0056B3;
   color: white;
   border: none;
   padding: 12px 20px;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 86, 179, 0.2);
 }
+
 .tool-btn:hover {
-  background: #2980b9;
+  background: #003d80;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
 }
 .tool-btn i {
   font-size: 20px;

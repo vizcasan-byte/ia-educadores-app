@@ -20,7 +20,6 @@ async function loadTools() {
   }
 }
 
-// Inicializar funcionalidad
 function initApp(toolsArray) {
   const tools = {};
   toolsArray.forEach(t => tools[t.id] = t);
@@ -41,13 +40,24 @@ function initApp(toolsArray) {
   let currentTool = null;
   let speed = 5;
 
-  function startScrolling() {
-    if (animationId) cancelAnimationFrame(animationId);
+  // Función para escribir letra por letra (máquina de escribir)
+  function typeText(text, callback) {
+    scrollingText.textContent = '';
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        scrollingText.textContent += text[i];
+        i++;
+      } else {
+        clearInterval(interval);
+        if (callback) callback();
+      }
+    }, 100); // Velocidad de escritura: 100ms por letra
+  }
 
-    // Posicionar el texto fuera de la parte superior
-    scrollingText.style.top = `-${scrollingText.offsetHeight + 50}px`;
-    scrollingText.style.left = '50%';
-    scrollingText.style.transform = 'translateX(-50%)';
+  // Función para mover el texto hacia arriba
+  function moveUp() {
+    if (animationId) cancelAnimationFrame(animationId);
 
     const containerHeight = content.offsetHeight;
     const textHeight = scrollingText.offsetHeight;
@@ -56,16 +66,14 @@ function initApp(toolsArray) {
     const estimatedTime = (durationMs / 1000).toFixed(0);
     readTime.textContent = tools[currentTool]?.readTime || `${estimatedTime}s`;
 
+    let position = -textHeight - 50;
     function animate() {
       if (!isPaused) {
-        const currentTop = parseFloat(scrollingText.style.top);
-        const newTop = currentTop + speed;
+        position += speed;
+        scrollingText.style.bottom = `${position}px`;
 
-        // Si el texto ya está completamente fuera por abajo, reinícialo
-        if (newTop > containerHeight + textHeight) {
-          scrollingText.style.top = `-${textHeight + 50}px`;
-        } else {
-          scrollingText.style.top = `${newTop}px`;
+        if (position > containerHeight) {
+          position = -textHeight - 50;
         }
       }
       animationId = requestAnimationFrame(animate);
@@ -78,11 +86,16 @@ function initApp(toolsArray) {
     btn.addEventListener("click", () => {
       currentTool = btn.dataset.tool;
       const tool = tools[currentTool];
-      scrollingText.textContent = tool.text;
       scrollingText.style.fontSize = fontSizeControl.value;
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
-      startScrolling();
+      scrollingText.textContent = ''; // Limpiar antes de escribir
+
+      // Primero, escribir letra por letra
+      typeText(tool.text, () => {
+        // Después de escribir, mover hacia arriba
+        moveUp();
+      });
     });
   });
 
@@ -90,12 +103,12 @@ function initApp(toolsArray) {
   speedControl.addEventListener("input", () => {
     speed = parseInt(speedControl.value);
     speedValue.textContent = speed;
-    if (currentTool) startScrolling();
+    if (currentTool) moveUp();
   });
 
   fontSizeControl.addEventListener("change", () => {
     scrollingText.style.fontSize = fontSizeControl.value;
-    if (currentTool) startScrolling();
+    if (currentTool) moveUp();
   });
 
   mirrorControl.addEventListener("change", () => {
@@ -109,10 +122,11 @@ function initApp(toolsArray) {
 
   restartBtn.addEventListener("click", () => {
     if (currentTool) {
-      scrollingText.style.top = `-${scrollingText.offsetHeight + 50}px`;
+      scrollingText.textContent = '';
+      scrollingText.style.bottom = '-100px';
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
-      startScrolling();
+      typeText(tools[currentTool].text, () => moveUp());
     }
   });
 
@@ -124,10 +138,9 @@ function initApp(toolsArray) {
   });
 
   window.addEventListener("resize", () => {
-    if (currentTool) startScrolling();
+    if (currentTool) moveUp();
   });
 
-  // Solicitar instalación
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     setTimeout(() => {
@@ -138,10 +151,8 @@ function initApp(toolsArray) {
   });
 }
 
-// Cargar al inicio
 loadTools();
 
-// Registrar Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('js/sw.js')
     .then(reg => console.log('SW registrado:', reg.scope))

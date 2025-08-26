@@ -56,13 +56,21 @@ h1 {
 }
 #scrolling-text {
   white-space: nowrap;
-  font-size: 1.2em;
+  font-size: 1.3em;
   color: #2c3e50;
   position: absolute;
-  top: 100%;
+  top: -100px; /* Fuera de la parte superior */
   left: 50%;
   transform: translateX(-50%);
-  transition: top 0.3s;
+  transition: none; /* Desactiva transición para animación suave con JS */
+  background: #f0f8ff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border: 1px solid #d0e7ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-width: 80%;
+  text-align: center;
+  z-index: 2;
 }
 .controls {
   display: flex;

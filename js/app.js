@@ -1,3 +1,4 @@
+// Cargar herramientas desde JSON
 async function loadTools() {
   try {
     const response = await fetch('data/tools.json');
@@ -19,11 +20,13 @@ async function loadTools() {
   }
 }
 
+// Inicializar funcionalidad
 function initApp(toolsArray) {
   const tools = {};
   toolsArray.forEach(t => tools[t.id] = t);
 
   const scrollingText = document.getElementById("scrolling-text");
+  const content = document.getElementById("content");
   const speedControl = document.getElementById("speed");
   const speedValue = document.getElementById("speed-value");
   const fontSizeControl = document.getElementById("font-size");
@@ -40,33 +43,42 @@ function initApp(toolsArray) {
 
   function startScrolling() {
     if (animationId) cancelAnimationFrame(animationId);
-    const rect = scrollingText.getBoundingClientRect();
-    const textWidth = rect.width;
-    let position = window.innerWidth;
 
-    const totalDistance = position + textWidth + 100;
+    // Posicionar el texto fuera de la parte superior
+    scrollingText.style.top = `-${scrollingText.offsetHeight + 50}px`;
+    scrollingText.style.left = '50%';
+    scrollingText.style.transform = 'translateX(-50%)';
+
+    const containerHeight = content.offsetHeight;
+    const textHeight = scrollingText.offsetHeight;
+    const totalDistance = containerHeight + textHeight + 50;
     const durationMs = (totalDistance / speed) * 20;
-    
-  function animate() {
-    if (!isPaused) {
-      position -= speed;
-      scrollingText.style.top = `${position}px`;
+    const estimatedTime = (durationMs / 1000).toFixed(0);
+    readTime.textContent = tools[currentTool]?.readTime || `${estimatedTime}s`;
 
-      if (position + textHeight < 0) {
-        position = window.innerHeight;
+    function animate() {
+      if (!isPaused) {
+        const currentTop = parseFloat(scrollingText.style.top);
+        const newTop = currentTop + speed;
+
+        // Si el texto ya está completamente fuera por abajo, reinícialo
+        if (newTop > containerHeight + textHeight) {
+          scrollingText.style.top = `-${textHeight + 50}px`;
+        } else {
+          scrollingText.style.top = `${newTop}px`;
+        }
       }
+      animationId = requestAnimationFrame(animate);
     }
-    animationId = requestAnimationFrame(animate);
+    animate();
   }
-  animate();
-}
 
+  // Eventos de botones
   document.querySelectorAll(".tool-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       currentTool = btn.dataset.tool;
       const tool = tools[currentTool];
       scrollingText.textContent = tool.text;
-      scrollingText.style.left = "100%";
       scrollingText.style.fontSize = fontSizeControl.value;
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
@@ -74,6 +86,7 @@ function initApp(toolsArray) {
     });
   });
 
+  // Controles
   speedControl.addEventListener("input", () => {
     speed = parseInt(speedControl.value);
     speedValue.textContent = speed;
@@ -96,7 +109,7 @@ function initApp(toolsArray) {
 
   restartBtn.addEventListener("click", () => {
     if (currentTool) {
-      scrollingText.style.left = "100%";
+      scrollingText.style.top = `-${scrollingText.offsetHeight + 50}px`;
       isPaused = false;
       pauseBtn.textContent = "⏸️ Pausar";
       startScrolling();
@@ -114,6 +127,7 @@ function initApp(toolsArray) {
     if (currentTool) startScrolling();
   });
 
+  // Solicitar instalación
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     setTimeout(() => {
@@ -124,8 +138,10 @@ function initApp(toolsArray) {
   });
 }
 
+// Cargar al inicio
 loadTools();
 
+// Registrar Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('js/sw.js')
     .then(reg => console.log('SW registrado:', reg.scope))
